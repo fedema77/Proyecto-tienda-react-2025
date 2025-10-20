@@ -1,7 +1,10 @@
-export default function Header({ title = "Mi tienda React"}) {
-    return (
-        <header style={{ padding: 12, borderBottom: "1px solid #eee" }}>
-            <h1>{title}</h1>
-        </header>
-    );
+export default function Header({ title = "Tienda React" }) {
+  return (
+    <header className="header">
+      <h1 className="header__title">{title}</h1>
+      <nav className="nav">
+        <a href="/">Home</a>
+      </nav>
+    </header>
+  );
 }
