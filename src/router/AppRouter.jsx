@@ -3,6 +3,8 @@ import Home from "../pages/Home";
 import Productos from "../pages/Productos";
 import ProductoDetalle from "../pages/ProductoDetalle";
 import App from "../App";
+import Perfil from "../pages/Perfil";
+import PrivateRoute from "./PrivateRoute";
 
 export default function AppRouter() {
   return (
@@ -14,6 +16,11 @@ export default function AppRouter() {
           <Route path="productos" element={<Productos />} />
           <Route path="productos/:id" element={<ProductoDetalle />} />
           <Route path="*" element={<h2 className="container">404</h2>} />
+          <Route path="perfil" element={
+                <PrivateRoute isAuth={false}>
+                <Perfil />
+                </PrivateRoute>
+            }/>
         </Route>
       </Routes>
     </BrowserRouter>
