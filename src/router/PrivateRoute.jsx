@@ -1,16 +1,7 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-export default function PrivateRoute({ isAuth, children }) {
-  const location = useLocation();
-
-  if (isAuth) return children;
-
-  // 👇 avisamos por qué redirigimos
-  return (
-    <Navigate
-      to="/"
-      replace
-      state={{ reason: "auth", from: location.pathname }}
-    />
-  );
+export default function PrivateRoute({ children }) {
+  const { isAuth } = useAuth();
+  return isAuth ? children : <Navigate to="/" replace />;
 }
