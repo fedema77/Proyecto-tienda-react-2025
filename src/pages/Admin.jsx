@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useProducts } from "../context/ProductsContext";
 import { toast } from "react-toastify";
+import { useProducts } from "../context/ProductsContext";
 import ProductFormModal from "../components/ProductFormModal";
 
 export default function Admin() {
@@ -68,7 +68,9 @@ export default function Admin() {
               className="lh-cart-thumb"
             />
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "0.9rem", fontWeight: 500 }}>{p.name}</div>
+              <div style={{ fontSize: "0.9rem", fontWeight: 500 }}>
+                {p.name}
+              </div>
               <div
                 style={{
                   fontSize: "0.8rem",

@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -9,6 +9,14 @@ export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.reason === "auth") {
+      toast.info("Necesitás iniciar sesión para continuar.", {
+        autoClose: 2200,
+      });
+    }
+  }, [location.state]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

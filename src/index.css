@@ -376,13 +376,13 @@ body {
 
 /* Pages genéricas */
 .lh-page {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.94);
   border-radius: var(--lh-radius-lg);
   padding: 1rem;
   box-shadow: var(--lh-shadow-soft);
 }
 
-/* Login y admin modales */
+/* Formularios */
 .lh-form {
   display: flex;
   flex-direction: column;
@@ -422,7 +422,7 @@ body {
   box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.25);
 }
 
-/* Tabla / lista carrito */
+/* Carrito / admin list */
 .lh-cart-list {
   display: flex;
   flex-direction: column;
@@ -477,4 +477,81 @@ body {
 
 .lh-footer-link:hover {
   color: var(--lh-primary);
+}
+
+/* ==== NAV MOBILE ==== */
+
+/* Botón hamburguesa (solo mobile) */
+.lh-nav-toggle {
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 0.35rem 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.lh-nav-toggle svg {
+  font-size: 1.1rem;
+}
+
+/* Se oculta en desktop */
+@media (min-width: 640px) {
+  .lh-nav-toggle {
+    display: none;
+  }
+}
+
+/* Menú mobile desplegable */
+.lh-nav-mobile {
+  position: fixed;
+  top: 56px; /* debajo del header */
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1rem;
+  background: rgba(248, 250, 252, 0.98);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  backdrop-filter: blur(12px);
+  z-index: 25;
+}
+
+.lh-nav-mobile-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.lh-nav-link-mobile {
+  font-size: 0.9rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--lh-border-soft);
+  background: #ffffff;
+  color: var(--lh-text-soft);
+  text-decoration: none;
+  text-align: center;
+}
+
+.lh-nav-link-mobile-active {
+  background: var(--lh-primary-soft);
+  color: var(--lh-primary);
+  border-color: rgba(34, 197, 94, 0.4);
+}
+
+/* En desktop NO mostramos el menú mobile */
+@media (min-width: 640px) {
+  .lh-nav-mobile {
+    display: none;
+  }
+}
+
+/* Ajuste del header para que el nav desktop quede bien centrado */
+@media (min-width: 640px) {
+  .lh-nav {
+    gap: 0.75rem;
+  }
 }

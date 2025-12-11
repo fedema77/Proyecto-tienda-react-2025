@@ -1,6 +1,6 @@
-import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { FaShoppingBag } from "react-icons/fa";
+import { useCart } from "../context/CartContext";
 
 export default function FloatingCartButton() {
   const { totalCount } = useCart();

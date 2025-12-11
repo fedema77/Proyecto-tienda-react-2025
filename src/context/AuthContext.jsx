@@ -20,7 +20,6 @@ const USERS = {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  // cargar desde localStorage
   useEffect(() => {
     const saved = localStorage.getItem("lh_user");
     if (saved) {
@@ -32,7 +31,6 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  // guardar en localStorage
   useEffect(() => {
     if (user) {
       localStorage.setItem("lh_user", JSON.stringify(user));
@@ -51,19 +49,21 @@ export function AuthProvider({ children }) {
     return { ok: false };
   };
 
-  const logout = () => {
-    setUser(null);
-  };
+  const logout = () => setUser(null);
 
-  const value = {
-    user,
-    isAuth: !!user,
-    isAdmin: user?.role === "admin",
-    login,
-    logout,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuth: !!user,
+        isAdmin: user?.role === "admin",
+        login,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {

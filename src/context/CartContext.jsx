@@ -10,7 +10,9 @@ export function CartProvider({ children }) {
       const existing = prev.find((it) => it.id === product.id);
       if (existing) {
         return prev.map((it) =>
-          it.id === product.id ? { ...it, quantity: it.quantity + 1 } : it
+          it.id === product.id
+            ? { ...it, quantity: it.quantity + 1 }
+            : it
         );
       }
       return [...prev, { ...product, quantity: 1 }];
@@ -33,16 +35,13 @@ export function CartProvider({ children }) {
     [items]
   );
 
-  const value = {
-    items,
-    addToCart,
-    removeFromCart,
-    clearCart,
-    totalCount,
-    totalAmount,
-  };
-
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider
+      value={{ items, addToCart, removeFromCart, clearCart, totalCount, totalAmount }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 }
 
 export function useCart() {

@@ -62,7 +62,6 @@ export default function Cart() {
                 ${totalAmount.toLocaleString("es-AR")}
               </strong>
             </div>
-            {/* Sin checkout, solo info */}
             <button className="lh-btn lh-btn-ghost" onClick={clearCart}>
               Vaciar carrito
             </button>

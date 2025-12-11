@@ -2,15 +2,14 @@ import { createContext, useContext, useState } from "react";
 
 const ProductsContext = createContext(null);
 
-// catálogo inicial (vivero boutique)
 const INITIAL_PRODUCTS = [
   {
     id: "1",
-    name: "Monstera Delicata",
+    name: "Monstera Deliciosa",
     price: 32000,
     description: "Follaje perforado, ideal para interiores luminosos.",
     imageUrl:
-      "https://images.pexels.com/photos/3076899/pexels-photo-3076899.jpeg",
+      "https://images.pexels.com/photos/3076899/pexels-photo-3076899.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
     id: "2",
@@ -18,7 +17,7 @@ const INITIAL_PRODUCTS = [
     price: 41000,
     description: "Versión compacta para espacios pequeños y luminosos.",
     imageUrl:
-      "https://images.pexels.com/photos/5699663/pexels-photo-5699663.jpeg",
+      "https://images.pexels.com/photos/5699663/pexels-photo-5699663.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
     id: "3",
@@ -26,15 +25,15 @@ const INITIAL_PRODUCTS = [
     price: 18500,
     description: "Textura suave, perfecto para estanterías y altura.",
     imageUrl:
-      "https://images.pexels.com/photos/1366630/pexels-photo-1366630.jpeg",
+      "https://images.pexels.com/photos/1366630/pexels-photo-1366630.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
     id: "4",
-    name: "Suculentas Curadas (set x3)",
+    name: "Set Suculentas Curadas x3",
     price: 14500,
     description: "Colección seleccionada de suculentas fáciles de cuidar.",
     imageUrl:
-      "https://images.pexels.com/photos/450326/pexels-photo-450326.jpeg",
+      "https://images.pexels.com/photos/450326/pexels-photo-450326.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
     id: "5",
@@ -42,7 +41,7 @@ const INITIAL_PRODUCTS = [
     price: 54000,
     description: "Toque mediterráneo en maceta artesanal esmaltada.",
     imageUrl:
-      "https://images.pexels.com/photos/3076897/pexels-photo-3076897.jpeg",
+      "https://images.pexels.com/photos/3076897/pexels-photo-3076897.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
     id: "6",
@@ -51,7 +50,7 @@ const INITIAL_PRODUCTS = [
     description:
       "Hojas aterciopeladas con patrón único, amante de la humedad.",
     imageUrl:
-      "https://images.pexels.com/photos/3695876/pexels-photo-3695876.jpeg",
+      "https://images.pexels.com/photos/3695876/pexels-photo-3695876.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
     id: "7",
@@ -59,7 +58,7 @@ const INITIAL_PRODUCTS = [
     price: 27000,
     description: "Verde lima vibrante para dar luz a cualquier rincón.",
     imageUrl:
-      "https://images.pexels.com/photos/3076898/pexels-photo-3076898.jpeg",
+      "https://images.pexels.com/photos/3076898/pexels-photo-3076898.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
   {
     id: "8",
@@ -67,7 +66,7 @@ const INITIAL_PRODUCTS = [
     price: 22000,
     description: "Colgante, de crecimiento rápido y muy noble.",
     imageUrl:
-      "https://images.pexels.com/photos/4392276/pexels-photo-4392276.jpeg",
+      "https://images.pexels.com/photos/4392276/pexels-photo-4392276.jpeg?auto=compress&cs=tinysrgb&w=800",
   },
 ];
 
@@ -91,18 +90,13 @@ export function ProductsProvider({ children }) {
     setProducts((prev) => prev.filter((p) => p.id !== id));
   };
 
-  const getProductById = (id) => products.find((p) => p.id === id);
-
-  const value = {
-    products,
-    createProduct,
-    updateProduct,
-    deleteProduct,
-    getProductById,
-  };
+  const getProductById = (id) =>
+    products.find((p) => String(p.id) === String(id)); // 👈 importantísimo
 
   return (
-    <ProductsContext.Provider value={value}>
+    <ProductsContext.Provider
+      value={{ products, createProduct, updateProduct, deleteProduct, getProductById }}
+    >
       {children}
     </ProductsContext.Provider>
   );

@@ -5,7 +5,6 @@ export default function ProtectedRoute({ children, requireAdmin = false }) {
   const { isAuth, isAdmin } = useAuth();
   const location = useLocation();
 
-  // No está logueado → mandamos a Login y dejamos una razón en el state
   if (!isAuth) {
     return (
       <Navigate
@@ -16,7 +15,6 @@ export default function ProtectedRoute({ children, requireAdmin = false }) {
     );
   }
 
-  // Logueado pero no admin → mandamos a Home con razón
   if (requireAdmin && !isAdmin) {
     return (
       <Navigate
@@ -27,6 +25,5 @@ export default function ProtectedRoute({ children, requireAdmin = false }) {
     );
   }
 
-  // Todo OK → mostramos el contenido protegido
   return children;
 }
