@@ -1,11 +1,42 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useProducts } from "../context/ProductsContext";
+import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
-export default function ProductoDetalle() {
+export default function ProductDetail() {
   const { id } = useParams();
+  const { getProductById } = useProducts();
+  const product = getProductById(id);
+  const { addToCart } = useCart();
+  const { isAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  if (!product) {
+    return (
+      <section className="lh-page">
+        <h2>Producto no encontrado</h2>
+        <p>Es posible que haya sido removido del catálogo.</p>
+      </section>
+    );
+  }
+
+  const handleAdd = () => {
+    if (!isAuth) {
+      toast.info("Iniciá sesión para agregar al carrito.", {
+        autoClose: 2200,
+      });
+      navigate("/login", { state: { from: location } });
+      return;
+    }
+    addToCart(product);
+    toast.success("Producto agregado al carrito.", { autoClose: 2000 });
+  };
+
   return (
-    <section className="container stack-16">
-      <h2>Detalle del producto #{id}</h2>
-      <p>Información del producto seleccionado.</p>
+    <section className="lh-page">
+      {/* ... resto del layout ... */}
     </section>
   );
 }

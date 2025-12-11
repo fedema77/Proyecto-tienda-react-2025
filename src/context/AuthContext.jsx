@@ -1,15 +1,67 @@
-import { createContext, useContext, useState, useMemo } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext(null);
 
+const USERS = {
+  Admin: {
+    username: "Admin",
+    password: "admin",
+    role: "admin",
+    name: "Usuario Admin",
+  },
+  Marta: {
+    username: "Marta",
+    password: "marta",
+    role: "customer",
+    name: "Marta",
+  },
+};
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const login = (email) => setUser({ email });
-  const logout = () => setUser(null);
 
-  const value = useMemo(() => ({
-    user, login, logout, isAuth: !!user
-  }), [user]);
+  // cargar desde localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem("lh_user");
+    if (saved) {
+      try {
+        setUser(JSON.parse(saved));
+      } catch {
+        localStorage.removeItem("lh_user");
+      }
+    }
+  }, []);
+
+  // guardar en localStorage
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("lh_user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("lh_user");
+    }
+  }, [user]);
+
+  const login = (username, password) => {
+    const found = USERS[username];
+    if (found && found.password === password) {
+      const { password: _pwd, ...safeUser } = found;
+      setUser(safeUser);
+      return { ok: true, user: safeUser };
+    }
+    return { ok: false };
+  };
+
+  const logout = () => {
+    setUser(null);
+  };
+
+  const value = {
+    user,
+    isAuth: !!user,
+    isAdmin: user?.role === "admin",
+    login,
+    logout,
+  };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

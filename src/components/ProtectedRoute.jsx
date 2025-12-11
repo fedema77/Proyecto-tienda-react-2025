@@ -1,24 +1,32 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { toast } from "react-toastify";
 
 export default function ProtectedRoute({ children, requireAdmin = false }) {
   const { isAuth, isAdmin } = useAuth();
   const location = useLocation();
 
+  // No está logueado → mandamos a Login y dejamos una razón en el state
   if (!isAuth) {
-    toast.warn("Necesitás iniciar sesión para acceder a esa sección.", {
-      autoClose: 2200,
-    });
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return (
+      <Navigate
+        to="/login"
+        replace
+        state={{ from: location, reason: "auth" }}
+      />
+    );
   }
 
+  // Logueado pero no admin → mandamos a Home con razón
   if (requireAdmin && !isAdmin) {
-    toast.error("Solo el usuario Admin puede acceder al área de gestión.", {
-      autoClose: 2400,
-    });
-    return <Navigate to="/" replace />;
+    return (
+      <Navigate
+        to="/"
+        replace
+        state={{ reason: "admin" }}
+      />
+    );
   }
 
+  // Todo OK → mostramos el contenido protegido
   return children;
 }
